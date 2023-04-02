@@ -4,19 +4,19 @@
   <meta charset="utf-8">
   
   
-  <title>About Servlet | aton</title>
+  <title>About java annotation | aton</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="atonのblog">
+  <meta name="description" content="Java注解  和反射1. 元数据元数据是描述数据的数据怎样定义注解?1234public @interface MyAnnotaion &amp;#123;&amp;#125;  自定义注解上可以使用元注解@Documented,@Target, @Retention等@Target({ElementType.METHOD}) 表示自定义的注解只能用在方法上@Retention(RetentionPolicy.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="About Servlet">
+<meta property="og:title" content="About java annotation">
 <meta property="og:url" content="http://example.com/2023/03/19/About-Servlet/index.html">
 <meta property="og:site_name" content="aton">
-<meta property="og:description" content="atonのblog">
+<meta property="og:description" content="Java注解  和反射1. 元数据元数据是描述数据的数据怎样定义注解?1234public @interface MyAnnotaion &amp;#123;&amp;#125;  自定义注解上可以使用元注解@Documented,@Target, @Retention等@Target({ElementType.METHOD}) 表示自定义的注解只能用在方法上@Retention(RetentionPolicy.">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-03-19T11:10:48.000Z">
-<meta property="article:modified_time" content="2023-03-19T12:04:47.564Z">
+<meta property="article:modified_time" content="2023-04-02T12:52:09.256Z">
 <meta property="article:author" content="atonwhy">
-<meta property="article:tag" content="java web">
+<meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="aton" type="application/atom+xml">
@@ -88,7 +88,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      About Servlet
+      About java annotation
     </h1>
   
 
@@ -96,15 +96,19 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        
+        <h1 id="Java注解-和反射"><a href="#Java注解-和反射" class="headerlink" title="Java注解  和反射"></a>Java注解  和反射</h1><h2 id="1-元数据"><a href="#1-元数据" class="headerlink" title="1. 元数据"></a>1. 元数据</h2><h3 id="元数据是描述数据的数据"><a href="#元数据是描述数据的数据" class="headerlink" title="元数据是描述数据的数据"></a>元数据是描述数据的数据</h3><h3 id="怎样定义注解"><a href="#怎样定义注解" class="headerlink" title="怎样定义注解?"></a>怎样定义注解?</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> MyAnnotaion &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="自定义注解上可以使用元注解-Documented-Target-Retention等"><a href="#自定义注解上可以使用元注解-Documented-Target-Retention等" class="headerlink" title="自定义注解上可以使用元注解@Documented,@Target, @Retention等"></a>自定义注解上可以使用元注解@Documented,@Target, @Retention等</h3><h3 id="Target-ElementType-METHOD-表示自定义的注解只能用在方法上"><a href="#Target-ElementType-METHOD-表示自定义的注解只能用在方法上" class="headerlink" title="@Target({ElementType.METHOD}) 表示自定义的注解只能用在方法上"></a><font color=red>@Target({ElementType.METHOD}) 表示自定义的注解只能用在方法上</font></h3><h3 id="Retention-RetentionPolicy-SOURCE"><a href="#Retention-RetentionPolicy-SOURCE" class="headerlink" title="@Retention(RetentionPolicy.SOURCE)"></a>@Retention(RetentionPolicy.SOURCE)</h3><h3 id="RetentionPolicy-SOURCE-表示注解只存在于源码中"><a href="#RetentionPolicy-SOURCE-表示注解只存在于源码中" class="headerlink" title="RetentionPolicy.SOURCE  表示注解只存在于源码中"></a>RetentionPolicy.SOURCE  表示注解只存在于源码中</h3><h3 id="RetentionPolicy-CLASS-表示注解存在于class文件中"><a href="#RetentionPolicy-CLASS-表示注解存在于class文件中" class="headerlink" title="RetentionPolicy.CLASS 表示注解存在于class文件中"></a>RetentionPolicy.CLASS 表示注解存在于class文件中</h3><h3 id="RetentionPolicy-RUNTIME"><a href="#RetentionPolicy-RUNTIME" class="headerlink" title="RetentionPolicy.RUNTIME"></a>RetentionPolicy.RUNTIME</h3><h3 id="Java中的注解其实是一种配置"><a href="#Java中的注解其实是一种配置" class="headerlink" title="Java中的注解其实是一种配置"></a><font color=red>Java中的注解其实是一种配置</font></h3><h2 id="2-Java-反射"><a href="#2-Java-反射" class="headerlink" title="2 . Java  反射"></a>2 . Java  反射</h2><h3 id="Class-类-是“一面镜子”能照出类的信息-类所属包，类名，字段名和字段类型等"><a href="#Class-类-是“一面镜子”能照出类的信息-类所属包，类名，字段名和字段类型等" class="headerlink" title="Class 类, 是“一面镜子”能照出类的信息: 类所属包，类名，字段名和字段类型等"></a>Class 类, 是“一面镜子”能照出类的信息: 类所属包，类名，字段名和字段类型等</h3><h3 id="任何一个类都有且仅有一个Class对象"><a href="#任何一个类都有且仅有一个Class对象" class="headerlink" title="任何一个类都有且仅有一个Class对象"></a><font color=red>任何一个类都有且仅有一个Class对象</font></h3><h3 id="怎样获取一个类中的Class对象"><a href="#怎样获取一个类中的Class对象" class="headerlink" title="怎样获取一个类中的Class对象?"></a>怎样获取一个类中的Class对象?</h3><h3 id="a-对象-getClass"><a href="#a-对象-getClass" class="headerlink" title="a) 对象.getClass()"></a>a) 对象.getClass()</h3><h3 id="b-类-class"><a href="#b-类-class" class="headerlink" title="b) 类.class"></a>b) 类.class</h3><h3 id="c-Class-forName-“类的全路径”"><a href="#c-Class-forName-“类的全路径”" class="headerlink" title="c) Class.forName(“类的全路径”)"></a>c) Class.forName(“类的全路径”)</h3><h3 id="JS中函数调用：-函数名-函数名-call-函数名-apply"><a href="#JS中函数调用：-函数名-函数名-call-函数名-apply" class="headerlink" title="JS中函数调用： 函数名(), 函数名.call() 函数名.apply()"></a>JS中函数调用： 函数名(), 函数名.call() 函数名.apply()</h3><h3 id="使用反射创建对象-Class"><a href="#使用反射创建对象-Class" class="headerlink" title="使用反射创建对象  Class"></a>使用反射创建对象  Class</h3><h3 id="使用clone创建对象-类必须实现Cloneable接口"><a href="#使用clone创建对象-类必须实现Cloneable接口" class="headerlink" title="使用clone创建对象  类必须实现Cloneable接口"></a>使用clone创建对象  类必须实现Cloneable接口</h3><h3 id="使用-序列化和反序列化创建对象-必须实现Serializable接口"><a href="#使用-序列化和反序列化创建对象-必须实现Serializable接口" class="headerlink" title="使用 序列化和反序列化创建对象   必须实现Serializable接口"></a>使用 序列化和反序列化创建对象   必须实现Serializable接口</h3><h3 id="序列化：-将对象写到-文件中"><a href="#序列化：-将对象写到-文件中" class="headerlink" title="序列化： 将对象写到 文件中"></a>序列化： 将对象写到 文件中</h3><h3 id="反序列化-将文件读取出来转换成对象"><a href="#反序列化-将文件读取出来转换成对象" class="headerlink" title="反序列化:  将文件读取出来转换成对象"></a>反序列化:  将文件读取出来转换成对象</h3><h2 id="3-反射中的API"><a href="#3-反射中的API" class="headerlink" title="3.  反射中的API"></a>3.  反射中的API</h2><h3 id="1-java-lang-reflect"><a href="#1-java-lang-reflect" class="headerlink" title="(1) java.lang.reflect"></a>(1) java.lang.reflect</h3><h3 id="2-常用API"><a href="#2-常用API" class="headerlink" title="(2) 常用API"></a>(2) 常用API</h3><h3 id="构造器使用-Constructor-类描述"><a href="#构造器使用-Constructor-类描述" class="headerlink" title="构造器使用 Constructor 类描述"></a>构造器使用 Constructor 类描述</h3><pre><code>### 	字段使用Field类描述
+</code></pre>
+<h3 id="方法使用Method描述"><a href="#方法使用Method描述" class="headerlink" title="方法使用Method描述"></a>方法使用Method描述</h3>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/03/19/About-Servlet/" data-id="clffc2kng0000q4scc1l41chq" data-title="About Servlet" class="article-share-link">分享</a>
+      <a data-url="http://example.com/2023/03/19/About-Servlet/" data-id="clffc2kng0000q4scc1l41chq" data-title="About java annotation" class="article-share-link">分享</a>
       
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-web/" rel="tag">java web</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li></ul>
 
     </footer>
   </div>
@@ -144,7 +148,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java-web/" rel="tag">java web</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/" rel="tag">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li></ul>
     </div>
   </div>
 
@@ -154,7 +158,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/java-web/" style="font-size: 10px;">java web</a>
+      <a href="/tags/MySQL/" style="font-size: 20px;">MySQL</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/java/" style="font-size: 10px;">java</a>
     </div>
   </div>
 
@@ -163,7 +167,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">三月 2023</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">四月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">三月 2023</a></li></ul>
     </div>
   </div>
 
@@ -176,11 +180,19 @@
       <ul>
         
           <li>
+            <a href="/2023/04/01/About-MySQL-Lock/">About MySQL Lock</a>
+          </li>
+        
+          <li>
+            <a href="/2023/03/30/About-http/">About http</a>
+          </li>
+        
+          <li>
             <a href="/2023/03/27/About-MySQL-Transaction/">About MySQL Transaction</a>
           </li>
         
           <li>
-            <a href="/2023/03/19/About-Servlet/">About Servlet</a>
+            <a href="/2023/03/19/About-Servlet/">About java annotation</a>
           </li>
         
           <li>

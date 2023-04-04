@@ -95,11 +95,34 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        
+        <h2 id="什么是锁"><a href="#什么是锁" class="headerlink" title="什么是锁"></a>什么是锁</h2><p>锁是计算机协调多个进程或线程并发访问某一资源的机制。在数据库中，除传统的计算资源（CPU、RAM、&#x2F;O）)的争用以外，数据也一种供许多用户共享的资源。如何保证数据并发访问的一致性、有效性是所有数据库必须解决的一个问题，锁冲突也是影响数据库并发访问性能的一个重要因素。从这个角度来说，锁对数据库而言显得尤其重要，也更加复杂。</p>
+<h2 id="锁级别"><a href="#锁级别" class="headerlink" title="锁级别"></a>锁级别</h2><ul>
+<li>全局锁:锁定数据库中的所有表<ul>
+<li>全局锁就是对整个数据库实例加锁，加锁后整个实例就处于只读状态，后续的DML的写语句，DDL语句，已经更新操作的事务提交语句都将被阻塞。其典型的使用场景是做全库的逻辑备份，对所有的表进行锁定，从而获取一致性视图，保证数据的完整性。</li>
+<li>数据库中加全局锁，是一个比较重的操作，存在以下问题:<ul>
+<li>1.如果在主库上备份，那么在备份期间都不能执行更新，业务基本上就得停摆。</li>
+<li>2．如果在从库上备份，那么在备份期间从库不能执行主库同步过来的二进制日志（binlog)，会导致主从延迟。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>表级锁:每次操作锁定整张表。锁定粒度大，发生锁冲突的概率最高，并发度最低。<ul>
+<li>表锁<ul>
+<li>表共享读锁（read lock） 不会阻塞其他客户端的读，只会堵塞写</li>
+<li>表独占写锁（write lock）阻塞其他客户端的读写<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">加锁：lock tables 表名 read/write</span><br><span class="line">释放锁： unlock tables / 客户端断开连接</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>元数据锁（meta data lock–MDL）<br>MDL加锁过程是系统自动控制，无需显式使用，在访问一张表的时候会自动加上。MDL锁主要作用是维护表元数据的数据一致性，在表上有活动事务的时候，不可以对元数据进行写入操作。</li>
+<li>意向锁</li>
+</ul>
+</li>
+<li>行级锁:每次操作锁住对应的行数据</li>
+</ul>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/04/01/About-MySQL-Lock/" data-id="clfzel3nf000020sceay2dyf8" data-title="About MySQL Lock" class="article-share-link">分享</a>
+      <a data-url="http://example.com/2023/04/01/About-MySQL-Lock/" data-id="clfzel3fi00009cschvk260l2" data-title="About MySQL Lock" class="article-share-link">分享</a>
       
       
       
@@ -139,7 +162,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/03/30/About-http/" data-id="clfzel3np000220scb94ehh35" data-title="About http" class="article-share-link">分享</a>
+      <a data-url="http://example.com/2023/03/30/About-http/" data-id="clfzel3fo00019csc52lwhk9w" data-title="About http" class="article-share-link">分享</a>
       
       
       
@@ -230,6 +253,29 @@
 <td align="center">false</td>
 </tr>
 </tbody></table>
+<ul>
+<li>读未提交（<code>READ UNCOMMITTED</code>）：一个事务可以读取另一个事务未提交的数据。这种隔离级别可以提高并发性能，但可能会导致脏读、不可重复读和幻读等问题。</li>
+<li>读已提交（<code>READ COMMITTED</code>）：一个事务只能读取另一个事务已经提交的数据。这种隔离级别可以避免脏读，但可能会导致不可重复读和幻读等问题。</li>
+<li>可重复读（<code>REPEATABLE READ</code>）：一个事务在执行期间看到的数据保持不变，即使其他事务已经修改了这些数据。这种隔离级别可以避免脏读和不可重复读，但可能会导致幻读等问题。</li>
+<li>序列化（<code>SERIALIZABLE</code>）：所有事务依次执行，每个事务都必须等待上一个事务执行完成后才能执行。这种隔离级别可以避免脏读、不可重复读和幻读等问题，但会降低并发性能。</li>
+</ul>
+<p>MySQL默认的隔离级别是<code>REPEATABLE READ</code>，但可以通过<code>SET TRANSACTION</code>语句来设置隔离级别。</p>
+<h2 id="事务的使用"><a href="#事务的使用" class="headerlink" title="事务的使用"></a>事务的使用</h2><p>在MySQL中，启用事务的方法是使用<code>BEGIN</code>、<code>COMMIT</code>和<code>ROLLBACK</code>语句。<code>BEGIN</code>语句标志着事务的开始，<code>COMMIT</code>语句标志着事务的结束并将其提交，<code>ROLLBACK</code>语句用于回滚事务并取消之前进行的所有操作。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">BEGIN;</span><br><span class="line">UPDATE table1 SET column1 = 1 WHERE id = 1;</span><br><span class="line">UPDATE table2 SET column2 = 2 WHERE id = 2;</span><br><span class="line">COMMIT;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，如果任何一个<code>UPDATE</code>语句失败，整个事务将被回滚并且不会有任何更改被提交到数据库中。使用事务可以确保数据库中的数据完整性，特别是在涉及到多个表格和复杂操作的情况下。</p>
+<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><h3 id="转账操作"><a href="#转账操作" class="headerlink" title="转账操作"></a>转账操作</h3><p>以下是一个简单的转账操作的MySQL事务示例：</p>
+<p>考虑一个简单的转账操作，将资金从一个账户转移到另一个账户。这个操作需要同时更新两个账户的资金余额，如果其中一个账户更新失败，整个操作应该被回滚。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">BEGIN;</span><br><span class="line">UPDATE accounts SET balance = balance - 500 WHERE id = 1;</span><br><span class="line">UPDATE accounts SET balance = balance + 500 WHERE id = 2;</span><br><span class="line">COMMIT;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在此示例中，事务的开始由<code>BEGIN</code>语句标志，而提交事务的完成则由<code>COMMIT</code>语句标志。如果其中任何一个<code>UPDATE</code>语句失败，则整个事务将被回滚并且不会有任何更改被提交到数据库中。这确保了数据库中的数据完整性，特别是在涉及到多个表格和复杂操作的情况下。</p>
+<h3 id="库存管理"><a href="#库存管理" class="headerlink" title="库存管理"></a>库存管理</h3><p>假设我们有一个在线商店，需要管理商品库存。当一个用户下订单时，我们需要把库存减去这个商品的数量。如果库存不足，订单应该被取消并且库存应该不会被减少。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">BEGIN;</span><br><span class="line">SELECT stock FROM products WHERE id = 1 FOR UPDATE;</span><br><span class="line">    -- FOR UPDATE确保了这个行被锁定，防止其他事务更新它</span><br><span class="line">    -- 如果库存不足，直接回滚事务</span><br><span class="line">    IF stock &lt; 1 THEN</span><br><span class="line">        ROLLBACK;</span><br><span class="line">        SELECT &#x27;Out of stock.&#x27;;</span><br><span class="line">    END IF;</span><br><span class="line">UPDATE products SET stock = stock - 1 WHERE id = 1;</span><br><span class="line">COMMIT;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在此示例中，我们使用<code>SELECT ... FOR UPDATE</code>语句来锁定库存行，以防止其他事务更新它。如果库存不足，事务将回滚并取消之前进行的所有操作。</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>MySQL事务是确保数据库数据完整性的重要工具，它具有<code>ACID</code>属性，并且支持多种隔离级别，可以确保数据库在高并发环境下正确地处理事务。正确地使用事务可以避免数据损坏和丢失，从而提高应用程序的可靠性和稳定性。</p>
+<p>在实际应用中，我们需要根据具体情况选择合适的隔离级别，并正确地使用事务来保证数据的完整性。同时，我们需要注意事务的性能开销，避免不必要的锁定和等待。</p>
+<p>MySQL事务是指由一系列SQL语句组成的操作序列，这些语句被视为单个逻辑单元并且要么全部执行，要么全部不执行。如果其中任何一条语句失败，则整个事务将被撤消并回滚到事务开始时的状态。MySQL事务的使用可以确保数据库中的数据完整性，特别是在高并发环境下。</p>
 
       
     </div>

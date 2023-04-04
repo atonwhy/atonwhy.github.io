@@ -14,7 +14,7 @@
 <meta property="og:description" content="什么是事务（Transaction）事务是一组操作的集合，它会将所有的操作作为一个整体一起向系统提交或撤销操作请求，这些操作要么全部成功，要么全部失败！ MySQl的事务是默认自动提交的我们可以查看&#x2F;设置事务提交方式 12SELECT @@autocommit;SET @@autocomit &#x3D; 0; -- 设置为手动提交  提交事务 1commit 回滚事务 1rollback  事务">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-03-27T11:39:58.000Z">
-<meta property="article:modified_time" content="2023-03-27T13:19:07.706Z">
+<meta property="article:modified_time" content="2023-04-04T12:13:39.711Z">
 <meta property="article:author" content="atonwhy">
 <meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
@@ -151,6 +151,29 @@
 <td align="center">false</td>
 </tr>
 </tbody></table>
+<ul>
+<li>读未提交（<code>READ UNCOMMITTED</code>）：一个事务可以读取另一个事务未提交的数据。这种隔离级别可以提高并发性能，但可能会导致脏读、不可重复读和幻读等问题。</li>
+<li>读已提交（<code>READ COMMITTED</code>）：一个事务只能读取另一个事务已经提交的数据。这种隔离级别可以避免脏读，但可能会导致不可重复读和幻读等问题。</li>
+<li>可重复读（<code>REPEATABLE READ</code>）：一个事务在执行期间看到的数据保持不变，即使其他事务已经修改了这些数据。这种隔离级别可以避免脏读和不可重复读，但可能会导致幻读等问题。</li>
+<li>序列化（<code>SERIALIZABLE</code>）：所有事务依次执行，每个事务都必须等待上一个事务执行完成后才能执行。这种隔离级别可以避免脏读、不可重复读和幻读等问题，但会降低并发性能。</li>
+</ul>
+<p>MySQL默认的隔离级别是<code>REPEATABLE READ</code>，但可以通过<code>SET TRANSACTION</code>语句来设置隔离级别。</p>
+<h2 id="事务的使用"><a href="#事务的使用" class="headerlink" title="事务的使用"></a>事务的使用</h2><p>在MySQL中，启用事务的方法是使用<code>BEGIN</code>、<code>COMMIT</code>和<code>ROLLBACK</code>语句。<code>BEGIN</code>语句标志着事务的开始，<code>COMMIT</code>语句标志着事务的结束并将其提交，<code>ROLLBACK</code>语句用于回滚事务并取消之前进行的所有操作。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">BEGIN;</span><br><span class="line">UPDATE table1 SET column1 = 1 WHERE id = 1;</span><br><span class="line">UPDATE table2 SET column2 = 2 WHERE id = 2;</span><br><span class="line">COMMIT;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，如果任何一个<code>UPDATE</code>语句失败，整个事务将被回滚并且不会有任何更改被提交到数据库中。使用事务可以确保数据库中的数据完整性，特别是在涉及到多个表格和复杂操作的情况下。</p>
+<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><h3 id="转账操作"><a href="#转账操作" class="headerlink" title="转账操作"></a>转账操作</h3><p>以下是一个简单的转账操作的MySQL事务示例：</p>
+<p>考虑一个简单的转账操作，将资金从一个账户转移到另一个账户。这个操作需要同时更新两个账户的资金余额，如果其中一个账户更新失败，整个操作应该被回滚。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">BEGIN;</span><br><span class="line">UPDATE accounts SET balance = balance - 500 WHERE id = 1;</span><br><span class="line">UPDATE accounts SET balance = balance + 500 WHERE id = 2;</span><br><span class="line">COMMIT;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在此示例中，事务的开始由<code>BEGIN</code>语句标志，而提交事务的完成则由<code>COMMIT</code>语句标志。如果其中任何一个<code>UPDATE</code>语句失败，则整个事务将被回滚并且不会有任何更改被提交到数据库中。这确保了数据库中的数据完整性，特别是在涉及到多个表格和复杂操作的情况下。</p>
+<h3 id="库存管理"><a href="#库存管理" class="headerlink" title="库存管理"></a>库存管理</h3><p>假设我们有一个在线商店，需要管理商品库存。当一个用户下订单时，我们需要把库存减去这个商品的数量。如果库存不足，订单应该被取消并且库存应该不会被减少。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">BEGIN;</span><br><span class="line">SELECT stock FROM products WHERE id = 1 FOR UPDATE;</span><br><span class="line">    -- FOR UPDATE确保了这个行被锁定，防止其他事务更新它</span><br><span class="line">    -- 如果库存不足，直接回滚事务</span><br><span class="line">    IF stock &lt; 1 THEN</span><br><span class="line">        ROLLBACK;</span><br><span class="line">        SELECT &#x27;Out of stock.&#x27;;</span><br><span class="line">    END IF;</span><br><span class="line">UPDATE products SET stock = stock - 1 WHERE id = 1;</span><br><span class="line">COMMIT;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在此示例中，我们使用<code>SELECT ... FOR UPDATE</code>语句来锁定库存行，以防止其他事务更新它。如果库存不足，事务将回滚并取消之前进行的所有操作。</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>MySQL事务是确保数据库数据完整性的重要工具，它具有<code>ACID</code>属性，并且支持多种隔离级别，可以确保数据库在高并发环境下正确地处理事务。正确地使用事务可以避免数据损坏和丢失，从而提高应用程序的可靠性和稳定性。</p>
+<p>在实际应用中，我们需要根据具体情况选择合适的隔离级别，并正确地使用事务来保证数据的完整性。同时，我们需要注意事务的性能开销，避免不必要的锁定和等待。</p>
+<p>MySQL事务是指由一系列SQL语句组成的操作序列，这些语句被视为单个逻辑单元并且要么全部执行，要么全部不执行。如果其中任何一条语句失败，则整个事务将被撤消并回滚到事务开始时的状态。MySQL事务的使用可以确保数据库中的数据完整性，特别是在高并发环境下。</p>
 
       
     </div>

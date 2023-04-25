@@ -4,16 +4,19 @@
   <meta charset="utf-8">
   
   
-  <title>aton</title>
+  <title>About Spring Annotation | aton</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="atonのblog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="aton">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="Spring框架注解分类与说明Spring框架是目前最为流行的Java应用程序开发框架之一，它提供了丰富的注解来实现不同的功能，本文将对这些注解进行分类与说明。 一、容器管理相关注解1. @Component作用： 标记该类为组件类，交由Spring容器管理，可用于任何层次。 用法： 1234javaCopy code@Componentpublic class MyComponent &amp;#123">
+<meta property="og:type" content="article">
+<meta property="og:title" content="About Spring Annotation">
+<meta property="og:url" content="http://example.com/2023/04/25/About-Spring-Annotation/index.html">
 <meta property="og:site_name" content="aton">
-<meta property="og:description" content="atonのblog">
+<meta property="og:description" content="Spring框架注解分类与说明Spring框架是目前最为流行的Java应用程序开发框架之一，它提供了丰富的注解来实现不同的功能，本文将对这些注解进行分类与说明。 一、容器管理相关注解1. @Component作用： 标记该类为组件类，交由Spring容器管理，可用于任何层次。 用法： 1234javaCopy code@Componentpublic class MyComponent &amp;#123">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-04-25T12:06:55.000Z">
+<meta property="article:modified_time" content="2023-04-25T12:40:08.067Z">
 <meta property="article:author" content="atonwhy">
+<meta property="article:tag" content="Spring">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="aton" type="application/atom+xml">
@@ -71,9 +74,7 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-About-Spring-Annotation" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-About-Spring-Annotation" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/04/25/About-Spring-Annotation/" class="article-date">
   <time class="dt-published" datetime="2023-04-25T12:06:55.000Z" itemprop="datePublished">2023-04-25</time>
@@ -86,8 +87,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/04/25/About-Spring-Annotation/">About Spring Annotation</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      About Spring Annotation
     </h1>
   
 
@@ -273,323 +274,19 @@
     </footer>
   </div>
   
-</article>
-
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-About-MySQL-Lock" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/04/01/About-MySQL-Lock/" class="article-date">
-  <time class="dt-published" datetime="2023-04-01T11:39:29.000Z" itemprop="datePublished">2023-04-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/04/01/About-MySQL-Lock/">About MySQL Lock</a>
-    </h1>
+    <a href="/2023/04/01/About-MySQL-Lock/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">About MySQL Lock</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="什么是锁"><a href="#什么是锁" class="headerlink" title="什么是锁"></a>什么是锁</h2><p>锁是计算机协调多个进程或线程并发访问某一资源的机制。在数据库中，除传统的计算资源（CPU、RAM、&#x2F;O）)的争用以外，数据也一种供许多用户共享的资源。如何保证数据并发访问的一致性、有效性是所有数据库必须解决的一个问题，锁冲突也是影响数据库并发访问性能的一个重要因素。从这个角度来说，锁对数据库而言显得尤其重要，也更加复杂。</p>
-<h2 id="锁级别"><a href="#锁级别" class="headerlink" title="锁级别"></a>锁级别</h2><ul>
-<li>全局锁:锁定数据库中的所有表<ul>
-<li>全局锁就是对整个数据库实例加锁，加锁后整个实例就处于只读状态，后续的DML的写语句，DDL语句，已经更新操作的事务提交语句都将被阻塞。其典型的使用场景是做全库的逻辑备份，对所有的表进行锁定，从而获取一致性视图，保证数据的完整性。</li>
-<li>数据库中加全局锁，是一个比较重的操作，存在以下问题:<ul>
-<li>1.如果在主库上备份，那么在备份期间都不能执行更新，业务基本上就得停摆。</li>
-<li>2．如果在从库上备份，那么在备份期间从库不能执行主库同步过来的二进制日志（binlog)，会导致主从延迟。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h2 id="表级锁-每次操作锁定整张表。锁定粒度大，发生锁冲突的概率最高，并发度最低。-表锁-表共享读锁（read-lock）-不会阻塞其他客户端的读，只会堵塞写-表独占写锁（write-lock）阻塞其他客户端的读写-元数据锁（meta-data-lock–MDL）-MDL加锁过程是系统自动控制，无需显式使用，在访问一张表的时候会自动加上。MDL锁主要作用是维护表元数据的数据一致性，在表上有活动事务的时候，不可以对元数据进行写入操作。-意向锁-1．意向共享锁（IS）︰与表锁共享锁-read-兼容，与表锁排它锁-write-互斥。-2．意向排他锁（IX-︰与表锁共享锁-read）及排它锁-write）都互斥。意向锁之间不会互斥。"><a href="#表级锁-每次操作锁定整张表。锁定粒度大，发生锁冲突的概率最高，并发度最低。-表锁-表共享读锁（read-lock）-不会阻塞其他客户端的读，只会堵塞写-表独占写锁（write-lock）阻塞其他客户端的读写-元数据锁（meta-data-lock–MDL）-MDL加锁过程是系统自动控制，无需显式使用，在访问一张表的时候会自动加上。MDL锁主要作用是维护表元数据的数据一致性，在表上有活动事务的时候，不可以对元数据进行写入操作。-意向锁-1．意向共享锁（IS）︰与表锁共享锁-read-兼容，与表锁排它锁-write-互斥。-2．意向排他锁（IX-︰与表锁共享锁-read）及排它锁-write）都互斥。意向锁之间不会互斥。" class="headerlink" title="表级锁:每次操作锁定整张表。锁定粒度大，发生锁冲突的概率最高，并发度最低。* 表锁  * 表共享读锁（read lock） 不会阻塞其他客户端的读，只会堵塞写  * 表独占写锁（write lock）阻塞其他客户端的读写  * 元数据锁（meta data lock–MDL）  MDL加锁过程是系统自动控制，无需显式使用，在访问一张表的时候会自动加上。MDL锁主要作用是维护表元数据的数据一致性，在表上有活动事务的时候，不可以对元数据进行写入操作。* 意向锁  * 1．意向共享锁（IS）︰与表锁共享锁( read)兼容，与表锁排它锁(write)互斥。  * 2．意向排他锁（IX)︰与表锁共享锁(read）及排它锁(write）都互斥。意向锁之间不会互斥。"></a>表级锁:每次操作锁定整张表。锁定粒度大，发生锁冲突的概率最高，并发度最低。<br>* 表锁<br>  * 表共享读锁（read lock） 不会阻塞其他客户端的读，只会堵塞写<br>  * 表独占写锁（write lock）阻塞其他客户端的读写<br>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">加锁：lock tables 表名 read/write</span><br><span class="line">释放锁： unlock tables / 客户端断开连接</span><br></pre></td></tr></table></figure><br>* 元数据锁（meta data lock–MDL）<br>  MDL加锁过程是系统自动控制，无需显式使用，在访问一张表的时候会自动加上。MDL锁主要作用是维护表元数据的数据一致性，在表上有活动事务的时候，不可以对元数据进行写入操作。<br>* 意向锁<br>  * 1．意向共享锁（IS）︰与表锁共享锁( read)兼容，与表锁排它锁(write)互斥。<br>  * 2．意向排他锁（IX)︰与表锁共享锁(read）及排它锁(write）都互斥。意向锁之间不会互斥。</h2><h2 id="select-object-schema-object-name-index-name-lock-type-lock-mode-lock-data-from-performance-schema-data-locks"><a href="#select-object-schema-object-name-index-name-lock-type-lock-mode-lock-data-from-performance-schema-data-locks" class="headerlink" title="select object_schema,object_name,index_name,lock_type,lock_mode,lock_data from performance_schema.data_locks;"></a>select object_schema,object_name,index_name,lock_type,lock_mode,lock_data from performance_schema.data_locks;</h2></li>
-<li>行级锁:每次操作锁住对应的行数据。锁定粒度最小，发生锁冲突的概率最低，并发度最高含应用在InnoDB存储引擎中<ul>
-<li>1．行锁(Record Lock)∶锁定单个行记录的锁，防止其他事务对此行进行update和delete。在RC、RR隔离级别下都支持。</li>
-<li>2，间隙锁(Gap Lock)∶锁定索引记录间隙〈不含该记录)，确保索引记录间隙不变，防止其他事务在这个间隙进行insert，产生幻读。在RR隔离级别下都支持。</li>
-<li>3.临键锁(Next-Key Lock)∶行锁和间隙锁组合，同时锁住数据，并锁住数据前面的间隙Gap。在RR隔离级别下支持。</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/04/01/About-MySQL-Lock/" data-id="clfzel3fi00009cschvk260l2" data-title="About MySQL Lock" class="article-share-link">分享</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
-
-
-
-  
-    <article id="post-About-http" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/03/30/About-http/" class="article-date">
-  <time class="dt-published" datetime="2023-03-30T07:47:01.000Z" itemprop="datePublished">2023-03-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/03/30/About-http/">About http</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/03/30/About-http/" data-id="clfzel3fo00019csc52lwhk9w" data-title="About http" class="article-share-link">分享</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/" rel="tag">http</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-About-MySQL-Transaction" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/03/27/About-MySQL-Transaction/" class="article-date">
-  <time class="dt-published" datetime="2023-03-27T11:39:58.000Z" itemprop="datePublished">2023-03-27</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/03/27/About-MySQL-Transaction/">About MySQL Transaction</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="什么是事务（Transaction）"><a href="#什么是事务（Transaction）" class="headerlink" title="什么是事务（Transaction）"></a>什么是事务（Transaction）</h2><p>事务是一组操作的集合，它会将所有的操作作为一个整体一起向系统提交或撤销操作请求，这些操作要么全部成功，要么全部失败！</p>
-<p>MySQl的事务是默认自动提交的<br>我们可以查看&#x2F;设置事务提交方式</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT @@autocommit;</span><br><span class="line">SET @@autocomit = 0; -- 设置为手动提交</span><br></pre></td></tr></table></figure>
-
-<p>提交事务</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">commit</span><br></pre></td></tr></table></figure>
-<p>回滚事务</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rollback</span><br></pre></td></tr></table></figure>
-
-<h2 id="事务的四大特性（ACID）"><a href="#事务的四大特性（ACID）" class="headerlink" title="事务的四大特性（ACID）"></a>事务的四大特性（ACID）</h2><ul>
-<li>原子性(Atomicity): 事务时不可分割的最小操作单元，要么全部成功，要么全部失败。</li>
-<li>一致性(Consistency): 事务完成时，必须使所有的数据保持一致状态</li>
-<li>隔离性(Isolation):数据库系统提供的隔离机制，保证事务不受外部并发影响的独立环境下允许</li>
-<li>持久性(Durability): 事务一旦提交或回滚，它对数据库中的数据改变就是永久的</li>
-</ul>
-<h2 id="并发事件问题"><a href="#并发事件问题" class="headerlink" title="并发事件问题"></a>并发事件问题</h2><ul>
-<li>脏读: 一个事务读到另外一个事务还没有提交的数据</li>
-<li>不可重复读 : 一个事务先后读取同一条记录，但俩次读取的数据不同</li>
-<li>一个事务按照条件查询数据时，没有对应的数据行，但是在插入数据时，又发现这行数据已经存在</li>
-</ul>
-<h2 id="事务隔离级别"><a href="#事务隔离级别" class="headerlink" title="事务隔离级别"></a>事务隔离级别</h2><p>数据库事务的隔离级别有4个，由低到高依次为Read uncommitted 、Read committed 、Repeatable read 、Serializable ，这四个级别可以逐个解决脏读 、不可重复读 、幻读 这几类问题。</p>
-<table>
-<thead>
-<tr>
-<th align="center">隔离级别</th>
-<th align="center">脏读</th>
-<th align="center">不可重复读</th>
-<th align="center">幻读</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">Read uncommitted</td>
-<td align="center">true</td>
-<td align="center">true</td>
-<td align="center">true</td>
-</tr>
-<tr>
-<td align="center">Read committed（redis默认级别）</td>
-<td align="center">false</td>
-<td align="center">true</td>
-<td align="center">true</td>
-</tr>
-<tr>
-<td align="center">Repeatable Read(数据库默认级别)</td>
-<td align="center">false</td>
-<td align="center">false</td>
-<td align="center">true</td>
-</tr>
-<tr>
-<td align="center">Serializable</td>
-<td align="center">false</td>
-<td align="center">false</td>
-<td align="center">false</td>
-</tr>
-</tbody></table>
-<ul>
-<li>读未提交（<code>READ UNCOMMITTED</code>）：一个事务可以读取另一个事务未提交的数据。这种隔离级别可以提高并发性能，但可能会导致脏读、不可重复读和幻读等问题。</li>
-<li>读已提交（<code>READ COMMITTED</code>）：一个事务只能读取另一个事务已经提交的数据。这种隔离级别可以避免脏读，但可能会导致不可重复读和幻读等问题。</li>
-<li>可重复读（<code>REPEATABLE READ</code>）：一个事务在执行期间看到的数据保持不变，即使其他事务已经修改了这些数据。这种隔离级别可以避免脏读和不可重复读，但可能会导致幻读等问题。</li>
-<li>序列化（<code>SERIALIZABLE</code>）：所有事务依次执行，每个事务都必须等待上一个事务执行完成后才能执行。这种隔离级别可以避免脏读、不可重复读和幻读等问题，但会降低并发性能。</li>
-</ul>
-<p>MySQL默认的隔离级别是<code>REPEATABLE READ</code>，但可以通过<code>SET TRANSACTION</code>语句来设置隔离级别。</p>
-<h2 id="事务的使用"><a href="#事务的使用" class="headerlink" title="事务的使用"></a>事务的使用</h2><p>在MySQL中，启用事务的方法是使用<code>BEGIN</code>、<code>COMMIT</code>和<code>ROLLBACK</code>语句。<code>BEGIN</code>语句标志着事务的开始，<code>COMMIT</code>语句标志着事务的结束并将其提交，<code>ROLLBACK</code>语句用于回滚事务并取消之前进行的所有操作。例如：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">BEGIN;</span><br><span class="line">UPDATE table1 SET column1 = 1 WHERE id = 1;</span><br><span class="line">UPDATE table2 SET column2 = 2 WHERE id = 2;</span><br><span class="line">COMMIT;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>在这个例子中，如果任何一个<code>UPDATE</code>语句失败，整个事务将被回滚并且不会有任何更改被提交到数据库中。使用事务可以确保数据库中的数据完整性，特别是在涉及到多个表格和复杂操作的情况下。</p>
-<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><h3 id="转账操作"><a href="#转账操作" class="headerlink" title="转账操作"></a>转账操作</h3><p>以下是一个简单的转账操作的MySQL事务示例：</p>
-<p>考虑一个简单的转账操作，将资金从一个账户转移到另一个账户。这个操作需要同时更新两个账户的资金余额，如果其中一个账户更新失败，整个操作应该被回滚。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">BEGIN;</span><br><span class="line">UPDATE accounts SET balance = balance - 500 WHERE id = 1;</span><br><span class="line">UPDATE accounts SET balance = balance + 500 WHERE id = 2;</span><br><span class="line">COMMIT;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>在此示例中，事务的开始由<code>BEGIN</code>语句标志，而提交事务的完成则由<code>COMMIT</code>语句标志。如果其中任何一个<code>UPDATE</code>语句失败，则整个事务将被回滚并且不会有任何更改被提交到数据库中。这确保了数据库中的数据完整性，特别是在涉及到多个表格和复杂操作的情况下。</p>
-<h3 id="库存管理"><a href="#库存管理" class="headerlink" title="库存管理"></a>库存管理</h3><p>假设我们有一个在线商店，需要管理商品库存。当一个用户下订单时，我们需要把库存减去这个商品的数量。如果库存不足，订单应该被取消并且库存应该不会被减少。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">BEGIN;</span><br><span class="line">SELECT stock FROM products WHERE id = 1 FOR UPDATE;</span><br><span class="line">    -- FOR UPDATE确保了这个行被锁定，防止其他事务更新它</span><br><span class="line">    -- 如果库存不足，直接回滚事务</span><br><span class="line">    IF stock &lt; 1 THEN</span><br><span class="line">        ROLLBACK;</span><br><span class="line">        SELECT &#x27;Out of stock.&#x27;;</span><br><span class="line">    END IF;</span><br><span class="line">UPDATE products SET stock = stock - 1 WHERE id = 1;</span><br><span class="line">COMMIT;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>在此示例中，我们使用<code>SELECT ... FOR UPDATE</code>语句来锁定库存行，以防止其他事务更新它。如果库存不足，事务将回滚并取消之前进行的所有操作。</p>
-<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>MySQL事务是确保数据库数据完整性的重要工具，它具有<code>ACID</code>属性，并且支持多种隔离级别，可以确保数据库在高并发环境下正确地处理事务。正确地使用事务可以避免数据损坏和丢失，从而提高应用程序的可靠性和稳定性。</p>
-<p>在实际应用中，我们需要根据具体情况选择合适的隔离级别，并正确地使用事务来保证数据的完整性。同时，我们需要注意事务的性能开销，避免不必要的锁定和等待。</p>
-<p>MySQL事务是指由一系列SQL语句组成的操作序列，这些语句被视为单个逻辑单元并且要么全部执行，要么全部不执行。如果其中任何一条语句失败，则整个事务将被撤消并回滚到事务开始时的状态。MySQL事务的使用可以确保数据库中的数据完整性，特别是在高并发环境下。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/03/27/About-MySQL-Transaction/" data-id="clfquwr2s0000qosc3z021u7l" data-title="About MySQL Transaction" class="article-share-link">分享</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-About-Servlet" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/03/19/About-Servlet/" class="article-date">
-  <time class="dt-published" datetime="2023-03-19T11:10:48.000Z" itemprop="datePublished">2023-03-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/03/19/About-Servlet/">About java annotation</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="Java注解-和反射"><a href="#Java注解-和反射" class="headerlink" title="Java注解  和反射"></a>Java注解  和反射</h1><h2 id="1-元数据"><a href="#1-元数据" class="headerlink" title="1. 元数据"></a>1. 元数据</h2><h3 id="元数据是描述数据的数据"><a href="#元数据是描述数据的数据" class="headerlink" title="元数据是描述数据的数据"></a>元数据是描述数据的数据</h3><h3 id="怎样定义注解"><a href="#怎样定义注解" class="headerlink" title="怎样定义注解?"></a>怎样定义注解?</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> MyAnnotaion &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="自定义注解上可以使用元注解-Documented-Target-Retention等"><a href="#自定义注解上可以使用元注解-Documented-Target-Retention等" class="headerlink" title="自定义注解上可以使用元注解@Documented,@Target, @Retention等"></a>自定义注解上可以使用元注解@Documented,@Target, @Retention等</h3><h3 id="Target-ElementType-METHOD-表示自定义的注解只能用在方法上"><a href="#Target-ElementType-METHOD-表示自定义的注解只能用在方法上" class="headerlink" title="@Target({ElementType.METHOD}) 表示自定义的注解只能用在方法上"></a><font color=red>@Target({ElementType.METHOD}) 表示自定义的注解只能用在方法上</font></h3><h3 id="Retention-RetentionPolicy-SOURCE"><a href="#Retention-RetentionPolicy-SOURCE" class="headerlink" title="@Retention(RetentionPolicy.SOURCE)"></a>@Retention(RetentionPolicy.SOURCE)</h3><h3 id="RetentionPolicy-SOURCE-表示注解只存在于源码中"><a href="#RetentionPolicy-SOURCE-表示注解只存在于源码中" class="headerlink" title="RetentionPolicy.SOURCE  表示注解只存在于源码中"></a>RetentionPolicy.SOURCE  表示注解只存在于源码中</h3><h3 id="RetentionPolicy-CLASS-表示注解存在于class文件中"><a href="#RetentionPolicy-CLASS-表示注解存在于class文件中" class="headerlink" title="RetentionPolicy.CLASS 表示注解存在于class文件中"></a>RetentionPolicy.CLASS 表示注解存在于class文件中</h3><h3 id="RetentionPolicy-RUNTIME"><a href="#RetentionPolicy-RUNTIME" class="headerlink" title="RetentionPolicy.RUNTIME"></a>RetentionPolicy.RUNTIME</h3><h3 id="Java中的注解其实是一种配置"><a href="#Java中的注解其实是一种配置" class="headerlink" title="Java中的注解其实是一种配置"></a><font color=red>Java中的注解其实是一种配置</font></h3><h2 id="2-Java-反射"><a href="#2-Java-反射" class="headerlink" title="2 . Java  反射"></a>2 . Java  反射</h2><h3 id="Class-类-是“一面镜子”能照出类的信息-类所属包，类名，字段名和字段类型等"><a href="#Class-类-是“一面镜子”能照出类的信息-类所属包，类名，字段名和字段类型等" class="headerlink" title="Class 类, 是“一面镜子”能照出类的信息: 类所属包，类名，字段名和字段类型等"></a>Class 类, 是“一面镜子”能照出类的信息: 类所属包，类名，字段名和字段类型等</h3><h3 id="任何一个类都有且仅有一个Class对象"><a href="#任何一个类都有且仅有一个Class对象" class="headerlink" title="任何一个类都有且仅有一个Class对象"></a><font color=red>任何一个类都有且仅有一个Class对象</font></h3><h3 id="怎样获取一个类中的Class对象"><a href="#怎样获取一个类中的Class对象" class="headerlink" title="怎样获取一个类中的Class对象?"></a>怎样获取一个类中的Class对象?</h3><h3 id="a-对象-getClass"><a href="#a-对象-getClass" class="headerlink" title="a) 对象.getClass()"></a>a) 对象.getClass()</h3><h3 id="b-类-class"><a href="#b-类-class" class="headerlink" title="b) 类.class"></a>b) 类.class</h3><h3 id="c-Class-forName-“类的全路径”"><a href="#c-Class-forName-“类的全路径”" class="headerlink" title="c) Class.forName(“类的全路径”)"></a>c) Class.forName(“类的全路径”)</h3><h3 id="JS中函数调用：-函数名-函数名-call-函数名-apply"><a href="#JS中函数调用：-函数名-函数名-call-函数名-apply" class="headerlink" title="JS中函数调用： 函数名(), 函数名.call() 函数名.apply()"></a>JS中函数调用： 函数名(), 函数名.call() 函数名.apply()</h3><h3 id="使用反射创建对象-Class"><a href="#使用反射创建对象-Class" class="headerlink" title="使用反射创建对象  Class"></a>使用反射创建对象  Class</h3><h3 id="使用clone创建对象-类必须实现Cloneable接口"><a href="#使用clone创建对象-类必须实现Cloneable接口" class="headerlink" title="使用clone创建对象  类必须实现Cloneable接口"></a>使用clone创建对象  类必须实现Cloneable接口</h3><h3 id="使用-序列化和反序列化创建对象-必须实现Serializable接口"><a href="#使用-序列化和反序列化创建对象-必须实现Serializable接口" class="headerlink" title="使用 序列化和反序列化创建对象   必须实现Serializable接口"></a>使用 序列化和反序列化创建对象   必须实现Serializable接口</h3><h3 id="序列化：-将对象写到-文件中"><a href="#序列化：-将对象写到-文件中" class="headerlink" title="序列化： 将对象写到 文件中"></a>序列化： 将对象写到 文件中</h3><h3 id="反序列化-将文件读取出来转换成对象"><a href="#反序列化-将文件读取出来转换成对象" class="headerlink" title="反序列化:  将文件读取出来转换成对象"></a>反序列化:  将文件读取出来转换成对象</h3><h2 id="3-反射中的API"><a href="#3-反射中的API" class="headerlink" title="3.  反射中的API"></a>3.  反射中的API</h2><h3 id="1-java-lang-reflect"><a href="#1-java-lang-reflect" class="headerlink" title="(1) java.lang.reflect"></a>(1) java.lang.reflect</h3><h3 id="2-常用API"><a href="#2-常用API" class="headerlink" title="(2) 常用API"></a>(2) 常用API</h3><h3 id="构造器使用-Constructor-类描述"><a href="#构造器使用-Constructor-类描述" class="headerlink" title="构造器使用 Constructor 类描述"></a>构造器使用 Constructor 类描述</h3><pre><code>### 	字段使用Field类描述
-</code></pre>
-<h3 id="方法使用Method描述"><a href="#方法使用Method描述" class="headerlink" title="方法使用Method描述"></a>方法使用Method描述</h3>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/03/19/About-Servlet/" data-id="clffc2kng0000q4scc1l41chq" data-title="About java annotation" class="article-share-link">分享</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/03/19/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2023-03-19T11:03:29.854Z" itemprop="datePublished">2023-03-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/03/19/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/03/19/hello-world/" data-id="clffc2knv0003q4schqqa1ego" data-title="Hello World" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
 </section>
